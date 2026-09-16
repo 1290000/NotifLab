@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">息匣通知实验室</string>
+    <string name="lab_subtitle">制造可控通知噪音，配合息匣验收盘点 / 静音 / 拦截</string>
+    <string name="action_reset">重置渠道</string>
+    <string name="action_send_all">连发全部</string>
+    <string name="action_clear">清空通知</string>
+    <string name="permission_needed">需要通知权限才能发送测试通知</string>
+    <string name="permission_request">授予通知权限</string>
+    <string name="reset_done">渠道已重置</string>
+    <string name="cleared">已清空本应用通知</string>
+</resources>
