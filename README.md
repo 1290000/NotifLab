@@ -2,6 +2,8 @@
 
 给 **Quieta（息匣）** 做真机验收用的配套测试 App。只负责制造可控通知噪音，不做业务推送。
 
+工程与产品约定见 [`AGENTS.md`](./AGENTS.md)。
+
 ## 能力（最小可用版）
 
 - 预置 8 个 `lab.*` 通知渠道，覆盖 HIGH / DEFAULT / LOW / MIN
