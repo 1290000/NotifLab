@@ -43,7 +43,7 @@
 | Notiflab | 制造噪音：建渠道、发通知 |
 | Quieta | 观察与治理：盘点、静音/降级、自动拦截 |
 
-**已交付（摘要）：** 8 渠道目录；发送 / 连发 / 重置 / 清空；`POST_NOTIFICATIONS`；K40s 真机联调（静音后发送不回弹、未静音渠道正常投递）。
+**已交付（摘要）：** 8 渠道目录；发送 / 连发 / 重置 / 清空；`POST_NOTIFICATIONS`；K40s 真机联调（静音后发送不回弹、未静音渠道正常投递）；ADB 调试入口 `LabDebugActivity`（推荐）+ `LabDebugReceiver`，便于无 UI tap 验收，不改系统通知设置。
 
 **已约定、尚未完成 / 待验收：**
 
@@ -158,10 +158,10 @@ MainActivity → LabViewModel → LabNotifier → NotificationManager
 |------|------------|-----------------|
 | 安装噪音源 | Notiflab | `adb install -r Notiflab/.../app-debug.apk` |
 | 授权并拉起噪音源 | Notiflab | `pm grant ... POST_NOTIFICATIONS`；`am start -n app.quieta.notiflab.debug/app.quieta.notiflab.MainActivity` |
-| 制造噪音 | Notiflab | UI「发送 / 连发全部 / 重置渠道」 |
+| 制造噪音 | Notiflab | UI「发送 / 连发全部 / 重置渠道」；或 ADB：`am start -n app.quieta.notiflab.debug/app.quieta.notiflab.LabDebugActivity --es cmd send_all` |
 | 安装治理端 | Quieta | `adb install -r Quieta/.../app-debug.apk` |
 | 拉起并治理 | Quieta | `am start -n app.quieta.debug/app.quieta.MainActivity`；刷新 / 按规则静音 |
-| 核验证据 | 系统 | `dumpsys notification` 查 `lab.*` 的 `mImportance` 与是否出现 NotificationRecord |
+| 核验证据 | 系统 | `dumpsys notification` 查 `lab.*` 的 `mImportance` 与是否出现 NotificationRecord；时间线看 `files/notification_timeline.json` |
 
 息匣本地路径约定：与本仓库同级 `../Quieta`（或文档中的 `C:\Users\i1290\Documents\ChatGPT\Quieta`）。远程：`https://github.com/1290000/Quieta`。
 
@@ -171,6 +171,7 @@ MainActivity → LabViewModel → LabNotifier → NotificationManager
 |------|--------|
 | 可复现的 `lab.*` 渠道目录 | 规则引擎、批量静音、提权 |
 | 点击发送 / 连发 / 重置 / 清空 | 通知使用权监听、时间线采集 |
+| ADB 调试入口 `LabDebugActivity` / `LabDebugReceiver` | 修改系统或其他应用的通知设置 |
 | 标准 API 噪音（无 Root） | 业务推送、网络上报 |
 
 对等说明：息匣负责观察与改 importance；本仓库只负责把渠道建出来并把通知发出去。双方在测试时**互相调用对方 debug 包**，以系统状态为验收真相源。

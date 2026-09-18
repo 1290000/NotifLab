@@ -18,5 +18,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- Debug ADB hook for Quieta acceptance tests; no system settings mutation. -->
+        <receiver
+            android:name=".LabDebugReceiver"
+            android:exported="true"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="app.quieta.notiflab.debug.ACTION_LAB_CMD" />
+            </intent-filter>
+        </receiver>
+        <activity
+            android:name=".LabDebugActivity"
+            android:exported="true"
+            android:excludeFromRecents="true"
+            android:theme="@android:style/Theme.NoDisplay" />
     </application>
 </manifest>
